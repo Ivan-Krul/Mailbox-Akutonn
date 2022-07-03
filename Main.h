@@ -3,6 +3,6 @@
 
 #pragma once
 
-#include <iostream>
+#include "Define/Define.h"
 
 // TODO: установите здесь ссылки на дополнительные заголовки, требующиеся для программы.
