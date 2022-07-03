@@ -7,11 +7,11 @@ int main()
 {
 	HWND hwnd = GetConsoleWindow();
 
-	MSBox ms;
+	MSBoxErr ms(hwnd);
+	ms.add_property(MSBox_prop__ok);
+	ms.add_title(L"Title");
+	ms.add_text(L"Text");
+	ms.trig();
 
-	MoveWindow(hwnd, 500, 500, 400, 300, true);
-	MessageBox(hwnd, TEXT("Text"), TEXT("Text"), MB_SERVICE_NOTIFICATION);
-
-	std::wcout << "Hello CMake.\n";
 	return 0;
 }

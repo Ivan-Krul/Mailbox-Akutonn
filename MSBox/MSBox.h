@@ -21,13 +21,29 @@ public:
 	MSBox_res resultmsg();
 };
 
-class MSboxErr : public MSBox {
+class MSBoxErr : public MSBox {
+public:
+	MSBoxErr(HWND& hwnd) : MSBox(hwnd) {
+		_icon = MB_ICONERROR;
+	}
 };
-class MSboxQue : public MSBox {
+class MSBoxQue : public MSBox {
+public:
+	MSBoxQue(HWND& hwnd) : MSBox(hwnd) {
+		_icon = MB_ICONQUESTION;
+	}
 };
-class MSboxWrn : public MSBox {
+class MSBoxWrn : public MSBox {
+public:
+	MSBoxWrn(HWND& hwnd) : MSBox(hwnd) {
+		_icon = MB_ICONWARNING;
+	}
 };
-class MSboxInf : public MSBox {
+class MSBoxInf : public MSBox {
+public:
+	MSBoxInf(HWND& hwnd) : MSBox(hwnd) {
+		_icon = MB_ICONINFORMATION;
+	}
 };
 
 #include "MSBox.cpp"
