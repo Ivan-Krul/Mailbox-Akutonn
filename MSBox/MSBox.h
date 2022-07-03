@@ -3,15 +3,22 @@
 
 class MSBox : public IMSBox {
 protected:
-	std::string _title;
-	std::string _text;
+	std::wstring _title;
+	std::wstring _text;
 
 	UINT _icon;
 	UINT _property;
-	int _id;
+	MSBox_res _id;
 
+	HWND _win;
 public:
-	void add_title(std::string titl);
+	MSBox(HWND& hwnd);
+
+	void add_title(std::wstring titl);
+	void add_text(std::wstring txt);
+	void add_property(MSBox_prop prop);
+	void trig();
+	MSBox_res resultmsg();
 };
 
 class MSboxErr : public MSBox {
