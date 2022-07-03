@@ -5,9 +5,7 @@
 
 int main()
 {
-	HWND hwnd = GetConsoleWindow();
-
-	MSBoxErr ms(hwnd);
+	MSBoxErr ms(NULL);
 	ms.add_property(MSBox_prop__ok);
 	ms.add_title(L"Title");
 	ms.add_text(L"Text");

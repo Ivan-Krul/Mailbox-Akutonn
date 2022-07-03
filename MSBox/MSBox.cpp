@@ -1,6 +1,6 @@
 #include "MSBox.h"
 
-MSBox::MSBox(HWND& hwnd) {
+MSBox::MSBox(HWND hwnd) {
 	_win = hwnd;
 
 	_title = L"[title]";

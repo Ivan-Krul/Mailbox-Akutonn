@@ -12,7 +12,7 @@ protected:
 
 	HWND _win;
 public:
-	MSBox(HWND& hwnd);
+	MSBox(HWND hwnd);
 
 	void add_title(std::wstring titl);
 	void add_text(std::wstring txt);
@@ -23,25 +23,25 @@ public:
 
 class MSBoxErr : public MSBox {
 public:
-	MSBoxErr(HWND& hwnd) : MSBox(hwnd) {
+	MSBoxErr(HWND hwnd) : MSBox(hwnd) {
 		_icon = MB_ICONERROR;
 	}
 };
 class MSBoxQue : public MSBox {
 public:
-	MSBoxQue(HWND& hwnd) : MSBox(hwnd) {
+	MSBoxQue(HWND hwnd) : MSBox(hwnd) {
 		_icon = MB_ICONQUESTION;
 	}
 };
 class MSBoxWrn : public MSBox {
 public:
-	MSBoxWrn(HWND& hwnd) : MSBox(hwnd) {
+	MSBoxWrn(HWND hwnd) : MSBox(hwnd) {
 		_icon = MB_ICONWARNING;
 	}
 };
 class MSBoxInf : public MSBox {
 public:
-	MSBoxInf(HWND& hwnd) : MSBox(hwnd) {
+	MSBoxInf(HWND hwnd) : MSBox(hwnd) {
 		_icon = MB_ICONINFORMATION;
 	}
 };
