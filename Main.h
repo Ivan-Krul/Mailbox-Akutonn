@@ -4,6 +4,6 @@
 #pragma once
 
 #include "Define/Define.h"
-#include "Messagebox/Messagebox.h"
+#include "MSBox/MSBox.h"
 
 // TODO: установите здесь ссылки на дополнительные заголовки, требующиеся для программы.
