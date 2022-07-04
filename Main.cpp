@@ -1,6 +1,7 @@
 ﻿// Mailbox Akutonn.cpp: определяет точку входа для приложения.
 //
 
+#define _WIN32_WINNT 0x0A00
 #include "Main.h"
 
 LRESULT WndProc (
@@ -14,18 +15,16 @@ HWND bt_strout;
 int main()
 {
 	HWND hwn = GetConsoleWindow();
-	ShowWindow(hwn, SW_SHOW);
+	ShowWindow(hwn, SHOW_CONSOLE);
 
-	RECT desktop;
-	const HWND hDesktop = GetDesktopWindow();
-	GetWindowRect(hDesktop, &desktop);
+
 
 	WNDCLASSW wcl;
 	HWND hwnd;
 
 	memset(&wcl, 0, sizeof(WNDCLASSW));
 
-	wcl.lpszClassName = L"Wind";
+	wcl.lpszClassName = PROJECT_NAME;
 	wcl.lpfnWndProc = WndProc;
 
 	RegisterClassW(&wcl);
@@ -55,7 +54,7 @@ int main()
 
 	HWND bt_list;
 
-	bt_list = CreateWindow(L"combobox", L"world", WS_VISIBLE | WS_CHILD | CBS_DROPDOWN,
+	bt_list = CreateWindow(L"combobox", L"world", WS_VISIBLE | WS_CHILD | CBS_DROPDOWNLIST,
 		120, 70, 100, 250, hwnd, (HMENU)5, NULL, NULL);
 
 	SendMessage(bt_list, CB_ADDSTRING, 0, (LPARAM)L"aaaaa");
@@ -64,7 +63,6 @@ int main()
 	SendMessage(bt_list, CB_SETCURSEL, 1, (LPARAM)0);
 
 	MSG msg;
-	bool is_on_but_x = false;
 	while (GetMessage(&msg,NULL,0,0)) {
 		TranslateMessage(&msg);
 		DispatchMessage(&msg);
@@ -73,7 +71,7 @@ int main()
 	return 0;
 }
 
-LRESULT WndProc(
+LRESULT WINAPI WndProc(
 	HWND hWnd,
 	UINT Msg,
 	WPARAM wParam,
@@ -120,7 +118,12 @@ LRESULT WndProc(
 		else if (LOWORD(wParam) == 5) {
 			if (HIWORD(wParam) == CBN_SELCHANGE) {
 				int id = SendMessage((HWND)lParam,CB_GETCURSEL,0,0);
-				std::wcout << "Selected " << id << '\n';
+				std::wstring str;
+				str.resize(100);
+				GetWindowText((HWND)lParam, (LPWSTR)str.c_str(), 100);
+				std::wcout << "Selected " << id << " is old " << str << '\n';
+				SendMessage((HWND)lParam,CB_GETLBTEXT, id, (LPARAM)str.c_str());
+				std::wcout << "Selected " << id<< " is new "<<str << '\n';
 			}
 		}
 	}
