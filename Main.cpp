@@ -17,8 +17,6 @@ int main()
 	HWND hwn = GetConsoleWindow();
 	ShowWindow(hwn, SHOW_CONSOLE);
 
-
-
 	WNDCLASSW wcl;
 	HWND hwnd;
 

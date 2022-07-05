@@ -22,9 +22,9 @@ interface IWind {
 
 interface HWNDesk : public IWind {
 	void create(std::wstring name, UINT coordX, UINT coordY, UINT Width, UINT Height, HMENU menu, HWND parent = NULL);
-	void create(std::wstring name, UINT Width, UINT Height, HMENU menu, HWND parent = NULL);
 	HWND get_HWND();
 
 };
 
 #include "Wind.cpp"
+#include "HWNDeskriptor/HWNDeskriptor.h"
