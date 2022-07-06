@@ -16,15 +16,12 @@ enum TypeHWND {
 std::wstring to_wstring(TypeHWND tphwn);
 POINT get_screen_resol();
 
-interface IWind {
-	void add_title(std::string titl);
+interface ITitle {
+	void title(std::string titl);
 };
 
-interface HWNDesk : public IWind {
-	void create(std::wstring name, UINT coordX, UINT coordY, UINT Width, UINT Height, HMENU menu, HWND parent = NULL);
-	HWND get_HWND();
-
+interface IWindow {
+	void create(HBRUSH bg_color, HCURSOR cursor, HINSTANCE hinst, HICON icon, LPCWSTR name, WNDPROC proccess);
 };
 
 #include "Wind.cpp"
-#include "HWNDeskriptor/HWNDeskriptor.h"

@@ -27,9 +27,9 @@ enum MSBox_res : int {
 	MSBox_res__try_again = IDTRYAGAIN
 };
 
-interface IMSBox : public IWind {
-	void add_text(std::wstring txt);
-	void add_property(MSBox_prop prop);
+interface IMSBox : public ITitle {
+	void text(std::wstring txt);
+	void property(MSBox_prop prop);
 	void trig();
 	MSBox_res resultmsg();
 };

@@ -14,9 +14,9 @@ protected:
 public:
 	MSBox(HWND hwnd);
 
-	void add_title(std::wstring titl);
-	void add_text(std::wstring txt);
-	void add_property(MSBox_prop prop);
+	void title(std::wstring titl);
+	void text(std::wstring txt);
+	void property(MSBox_prop prop);
 	void trig();
 	MSBox_res resultmsg();
 };

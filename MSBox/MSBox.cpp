@@ -10,15 +10,15 @@ MSBox::MSBox(HWND hwnd) {
 	_property = 0u;
 }
 
-void MSBox::add_title(std::wstring titl) {
+void MSBox::title(std::wstring titl) {
 	_title = titl;
 }
 
-void MSBox::add_text(std::wstring txt) {
+void MSBox::text(std::wstring txt) {
 	_text = txt;
 }
 
-void MSBox::add_property(MSBox_prop prop) {
+void MSBox::property(MSBox_prop prop) {
 	_property |= prop;
 }
 
