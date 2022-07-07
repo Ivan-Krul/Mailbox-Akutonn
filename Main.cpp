@@ -16,7 +16,7 @@ int main() {
 		if (ms.resultmsg() == MSBox_res__cancel) return 1;
 	}
 */
-	Window wnd;
+	Wnodw wnd;
 	wnd.create((HBRUSH)COLOR_WINDOW,
 		LoadCursor(NULL, IDC_ARROW),NULL,
 		LoadIcon(NULL, IDI_QUESTION), WndProc);
@@ -32,20 +32,8 @@ int main() {
 	return 0;
 }
 
-WNDCLASS new_window(HBRUSH bg_color, HCURSOR cursor, HINSTANCE hinst, HICON icon, LPCWSTR name, WNDPROC proccess) {
-	WNDCLASS NWC = { 0 };
-
-	NWC.hIcon = icon;
-	NWC.hCursor = cursor;
-	NWC.hInstance = hinst;
-	NWC.lpszClassName = name;
-	NWC.hbrBackground = bg_color;
-	NWC.lpfnWndProc = proccess;
-
-	return NWC;
-}
-
-LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp) {
+LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wp,
+	LPARAM lp) {
 	switch (msg)
 	{
 	case WM_CREATE:
@@ -60,7 +48,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp) {
 			std::wcout << "\tmenu:file/create/empty file\n";
 			MSBoxInf inf(hwnd);
 			inf.title(L"info");
-			inf.text(L"menu:file/create/empty file is clicked");
+			inf.text(
+				L"menu:file/create/empty file is clicked");
 			inf.property(MSBox_prop__ok);
 			inf.trig();}
 			break;
@@ -109,11 +98,15 @@ void add_menu(HWND hwnd) {
 
 	AppendMenu(root, MF_POPUP, (UINT_PTR)root_file, L"File");
 	AppendMenu(root, MF_STRING, MenuVisual, L"Visual");
-	AppendMenu(root, MF_STRING, MenuDocumentation, L"Documentation");
-	AppendMenu(root_file, MF_POPUP, (UINT_PTR)root_file_create, L"Create");
+	AppendMenu(root, MF_STRING, MenuDocumentation, 
+		L"Documentation");
+	AppendMenu(root_file, MF_POPUP, 
+		(UINT_PTR)root_file_create, L"Create");
 	AppendMenu(root_file, MF_SEPARATOR, NULL, NULL);
-	AppendMenu(root_file, MF_STRING, MenuFileMenuExit, L"Exit");
-	AppendMenu(root_file_create, MF_STRING, MenuFileMenuCreateMenuFile, L"Empty file");
+	AppendMenu(root_file, MF_STRING, MenuFileMenuExit, 
+		L"Exit");
+	AppendMenu(root_file_create, MF_STRING, 
+		MenuFileMenuCreateMenuFile, L"Empty file");
 
 
 	SetMenu(hwnd, root);

@@ -1,6 +1,5 @@
 #pragma once
 #include "../Define/Define.h"
-#include "../Wind/Wind.h"
 
 enum MSBox_prop : UINT {
 	MSBox_prop__abort_retry_ignore = MB_ABORTRETRYIGNORE,
@@ -27,7 +26,8 @@ enum MSBox_res : int {
 	MSBox_res__try_again = IDTRYAGAIN
 };
 
-interface IMSBox : public ITitle {
+interface IMSBox {
+	void title(std::wstring titl);
 	void text(std::wstring txt);
 	void property(MSBox_prop prop);
 	void trig();

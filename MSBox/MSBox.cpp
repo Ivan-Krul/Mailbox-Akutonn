@@ -23,7 +23,8 @@ void MSBox::property(MSBox_prop prop) {
 }
 
 void MSBox::trig() {
-	int id = MessageBox(_win, _text.c_str(), _title.c_str(), _property | _icon);
+	int id = MessageBox(_win, _text.c_str(), _title.c_str(),
+		_property | _icon);
 	_id = (MSBox_res)id;
 }
 

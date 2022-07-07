@@ -1,7 +1,18 @@
 #pragma once
-#include "../Wind.h"
+#include "../Define/Define.h"
 
-class Window : public IWindow {
+interface IWnodw {
+	void create(HBRUSH bg_color, HCURSOR cursor,
+		HINSTANCE hinst, HICON icon, WNDPROC proccess);
+
+	HWND adapt(LPCWSTR name, DWORD style, UINT x, UINT y,
+		HWND hwnd = NULL, HMENU hmenu = NULL,
+		HINSTANCE hinst = NULL, LPVOID lparam = NULL);
+};
+
+static POINT get_screen_resol();
+
+class Wnodw {
 	WNDCLASS _wcl;
 
 
@@ -16,4 +27,4 @@ public:
 		HINSTANCE hinst = NULL, LPVOID lparam = NULL);
 };
 
-#include "Window.cpp"
+#include "Wnodw.cpp"
