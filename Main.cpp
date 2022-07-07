@@ -17,11 +17,9 @@ int main() {
 	}
 */
 	Wnodw wnd;
-	wnd.create((HBRUSH)COLOR_WINDOW,
-		LoadCursor(NULL, IDC_ARROW),NULL,
-		LoadIcon(NULL, IDI_QUESTION), WndProc);
-	wnd.adapt(L"Wnd", WS_OVERLAPPEDWINDOW | WS_VISIBLE, 500,
-		250);
+	wnd.create(WndProc);
+	wnd.adapt(L"Wnd", WS_OVERLAPPEDWINDOW | 
+		WS_VISIBLE, 500, 250);
 
 	MSG msg = {0};
 	while (GetMessage(&msg, NULL, NULL, NULL)) {
@@ -88,7 +86,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wp,
 	default:
 		return DefWindowProc(hwnd, msg, wp, lp);
 	}
-
+	return DefWindowProc(hwnd, msg, wp, lp);
 }
 
 void add_menu(HWND hwnd) {
