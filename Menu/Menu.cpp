@@ -4,7 +4,7 @@ Menu::Menu() {
 	_menu = CreateMenu();
 }
 
-Menu::Menu(std::vector<std::string> indexer) {
+Menu::Menu(std::vector<std::string> indexer) : Menu::Menu() {
 	for (size_t i = 0;i < indexer.size();i++) {
 		append(indexer[i]);
 	}
@@ -23,11 +23,16 @@ void Menu::separatorend() {
 	AppendMenu(_menu, MF_SEPARATOR, NULL, NULL);
 }
 
-void Menu::append(IMenu menu, std::string name) {
-	append(menu.get_menu(), name);
+HMENU Menu::get_menu()
+{
+	return _menu;
 }
 
-HMENU Menu::get_menu() {
+void Menu::set_as_main(HWND hwnd) {
+	SetMenu(hwnd, _menu);
+}
+
+HMENU Menu::operator() () {
 	return _menu;
 }
 

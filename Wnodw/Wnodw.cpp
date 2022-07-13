@@ -57,7 +57,7 @@ HWND Wnodw::adapt(LPCSTR name, DWORD style, UINT x,
 		hinst, lparam);
 }
 
-WNDCLASS Wnodw::modify()
+WNDCLASS Wnodw::operator() ()
 {
 	return _wcl;
 }

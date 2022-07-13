@@ -1,21 +1,9 @@
 ﻿// Mailbox Akutonn.cpp: определяет точку входа для приложения.
 //
 
-#define _WIN32_WINNT 0x0A00
 #include "Main.h"
 
 int main() {
-	//Message at start
-	/*
-	{
-		MSBoxInf ms(NULL);
-		ms.title(PROJECT_NAME);
-		ms.text(L"Program is run");
-		ms.property(MSBox_prop__ok_cancel);
-		ms.trig();
-		if (ms.resultmsg() == MSBox_res__cancel) return 1;
-	}
-*/
 	Wnodw wnd;
 	wnd.create(WndProc);
 	wnd.adapt("Wnd", WS_OVERLAPPEDWINDOW | WS_VISIBLE, 500, 250);
@@ -32,14 +20,16 @@ int main() {
 //---------------------------------------------------------//
 
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp) {
+	static Menu menu;
+
 	if (msg == WM_CREATE) {
 		std::wcout << "create\n";
-		add_menu(hwnd);
+		add_menu(hwnd, menu);
 	}
 	else if (msg == WM_COMMAND) {
 		std::wcout << "command";
 
-		if (wp == MenuFileMenuCreateMenuFile) {
+		if (wp == menu["Empty file"]) {
 			std::wcout << "\tmenu:file/create/empty file\n";
 			MSBoxInf inf(hwnd);
 			inf.title("info");
@@ -48,7 +38,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp) {
 			inf.property(MSBox_prop::ok);
 			inf.trig();
 		}
-		else if(wp == MenuVisual) {
+		else if(wp == menu["Visual"]) {
 			std::wcout << "\tmenu:visual\n";
 			MSBoxInf inf(hwnd);
 			inf.title("info");
@@ -56,7 +46,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp) {
 			inf.property(MSBox_prop::ok);
 			inf.trig();
 		}
-		else if (wp == MenuDocumentation) {
+		else if (wp == menu["Documentation"]) {
 			std::wcout << "\tmenu:documentation\n";
 			MSBoxInf inf(hwnd);
 			inf.title("info");
@@ -64,7 +54,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp) {
 			inf.property(MSBox_prop::ok);
 			inf.trig();
 		}
-		else if (wp == MenuFileMenuExit) {
+		else if (wp == menu["Exit"]) {
 			std::wcout << "\tmenu:file/exit\n";
 			std::wcout << "destroy\n";
 			PostQuitMessage(0);
@@ -77,19 +67,17 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp) {
 	return DefWindowProc(hwnd, msg, wp, lp);
 }
 
-void add_menu(HWND hwnd) {
-	HMENU root = CreateMenu();
-	HMENU root_file = CreateMenu();
-	HMENU root_file_create = CreateMenu();
+void add_menu(HWND hwnd, Menu& menu) {
+	Menu men1;
+	Menu men2;
 
-	AppendMenu(root, MF_POPUP, (UINT_PTR)root_file, "File");
-	AppendMenu(root, MF_STRING, MenuVisual, "Visual");
-	AppendMenu(root, MF_STRING, MenuDocumentation, "Documentation");
-	AppendMenu(root_file, MF_POPUP, (UINT_PTR)root_file_create, "Create");
-	AppendMenu(root_file, MF_SEPARATOR, NULL, NULL);
-	AppendMenu(root_file, MF_STRING, MenuFileMenuExit, "Exit");
-	AppendMenu(root_file_create, MF_STRING, MenuFileMenuCreateMenuFile, "Empty file");
+	menu.append(men1(), "File");
+	menu.append("Visual");
+	menu.append("Documentation");
+	men1.append(men2(), "Create");
+	men1.separatorend();
+	men1.append("Exit");
+	men2.append("Empty file");
 
-
-	SetMenu(hwnd, root);
+	menu.set_as_main(hwnd);
 }

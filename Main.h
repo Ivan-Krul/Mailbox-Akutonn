@@ -7,15 +7,15 @@
 #include "Define/Define.h"
 #include "MSBox/MSBox.h"
 #include "Wnodw/Wnodw.h"
+#include "Menu/Menu.h"
 
 #define MenuFileMenuCreateMenuFile 1
 #define MenuVisual 2
 #define MenuDocumentation 3
 #define MenuFileMenuExit 4
 
-void add_menu(HWND hwnd);
-LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wp,
-	LPARAM lp);
+void add_menu(HWND hwnd, Menu& menu);
+LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp);
 
 int main();
 
