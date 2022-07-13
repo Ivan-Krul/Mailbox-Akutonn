@@ -1,6 +1,4 @@
 #pragma once
-#define UNICODE
-
 #define CENTER 'cent'
 #define DIAGONAL 'diag'
 #define RANDOM 'rand'
@@ -15,7 +13,7 @@
 #include <Windows.h>
 
 #define SHOW_CONSOLE 1
-#define PROJECT_NAME L"Mailbox Akutonn"
+#define PROJECT_NAME "Mailbox Akutonn"
 
 #ifdef SHOW_CONSOLE
 #include <iostream>

@@ -25,7 +25,7 @@ public:
 		HCURSOR cursor = LoadCursor(NULL, IDC_ARROW),
 		HINSTANCE hinst = NULL, HICON icon = NULL);
 
-	HWND adapt(LPCWSTR name, DWORD style, UINT x, UINT y,
+	HWND adapt(LPCSTR name, DWORD style, UINT x, UINT y,
 		HWND hwnd = NULL, HMENU hmenu = NULL,
 		HINSTANCE hinst = NULL, LPVOID lparam = NULL);
 	

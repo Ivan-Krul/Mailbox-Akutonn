@@ -3,8 +3,8 @@
 
 class MSBox : public IMSBox {
 protected:
-	std::wstring _title;
-	std::wstring _text;
+	std::string _title;
+	std::string _text;
 
 	UINT _icon;
 	UINT _property;
@@ -14,8 +14,8 @@ protected:
 public:
 	MSBox(HWND hwnd);
 
-	void title(std::wstring titl);
-	void text(std::wstring txt);
+	void title(std::string titl);
+	void text(std::string txt);
 	void property(MSBox_prop prop);
 	void trig();
 	MSBox_res resultmsg();

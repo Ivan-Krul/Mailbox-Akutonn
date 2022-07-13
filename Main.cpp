@@ -18,8 +18,7 @@ int main() {
 */
 	Wnodw wnd;
 	wnd.create(WndProc);
-	wnd.adapt(L"Wnd", WS_OVERLAPPEDWINDOW | 
-		WS_VISIBLE, 500, 250);
+	wnd.adapt("Wnd", WS_OVERLAPPEDWINDOW | WS_VISIBLE, 500, 250);
 
 	MSG msg = {0};
 	while (GetMessage(&msg, NULL, NULL, NULL)) {
@@ -30,61 +29,50 @@ int main() {
 	return 0;
 }
 
-LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wp,
-	LPARAM lp) {
-	switch (msg)
-	{
-	case WM_CREATE:
+//---------------------------------------------------------//
+
+LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp) {
+	if (msg == WM_CREATE) {
 		std::wcout << "create\n";
 		add_menu(hwnd);
-		break;
-
-	case WM_COMMAND:
+	}
+	else if (msg == WM_COMMAND) {
 		std::wcout << "command";
-		switch (wp) {
-		case MenuFileMenuCreateMenuFile: {
+
+		if (wp == MenuFileMenuCreateMenuFile) {
 			std::wcout << "\tmenu:file/create/empty file\n";
 			MSBoxInf inf(hwnd);
-			inf.title(L"info");
+			inf.title("info");
 			inf.text(
-				L"menu:file/create/empty file is clicked");
-			inf.property(MSBox_prop__ok);
-			inf.trig();}
-			break;
-
-		case MenuVisual: {
+				"menu:file/create/empty file is clicked");
+			inf.property(MSBox_prop::ok);
+			inf.trig();
+		}
+		else if(wp == MenuVisual) {
 			std::wcout << "\tmenu:visual\n";
 			MSBoxInf inf(hwnd);
-			inf.title(L"info");
-			inf.text(L"visual is clicked");
-			inf.property(MSBox_prop__ok);
-			inf.trig();}
-			break;
-
-		case MenuDocumentation: {
+			inf.title("info");
+			inf.text("visual is clicked");
+			inf.property(MSBox_prop::ok);
+			inf.trig();
+		}
+		else if (wp == MenuDocumentation) {
 			std::wcout << "\tmenu:documentation\n";
 			MSBoxInf inf(hwnd);
-			inf.title(L"info");
-			inf.text(L"documentation is clicked");
-			inf.property(MSBox_prop__ok);
-			inf.trig();}
-			break;
-
-		case MenuFileMenuExit:
+			inf.title("info");
+			inf.text("documentation is clicked");
+			inf.property(MSBox_prop::ok);
+			inf.trig();
+		}
+		else if (wp == MenuFileMenuExit) {
 			std::wcout << "\tmenu:file/exit\n";
 			std::wcout << "destroy\n";
 			PostQuitMessage(0);
-
-			break;
 		}
-		break;
-	case WM_DESTROY:
+	}
+	else if (msg == WM_DESTROY) {
 		std::wcout << "destroy\n";
 		PostQuitMessage(0);
-		break;
-
-	default:
-		return DefWindowProc(hwnd, msg, wp, lp);
 	}
 	return DefWindowProc(hwnd, msg, wp, lp);
 }
@@ -94,17 +82,13 @@ void add_menu(HWND hwnd) {
 	HMENU root_file = CreateMenu();
 	HMENU root_file_create = CreateMenu();
 
-	AppendMenu(root, MF_POPUP, (UINT_PTR)root_file, L"File");
-	AppendMenu(root, MF_STRING, MenuVisual, L"Visual");
-	AppendMenu(root, MF_STRING, MenuDocumentation, 
-		L"Documentation");
-	AppendMenu(root_file, MF_POPUP, 
-		(UINT_PTR)root_file_create, L"Create");
+	AppendMenu(root, MF_POPUP, (UINT_PTR)root_file, "File");
+	AppendMenu(root, MF_STRING, MenuVisual, "Visual");
+	AppendMenu(root, MF_STRING, MenuDocumentation, "Documentation");
+	AppendMenu(root_file, MF_POPUP, (UINT_PTR)root_file_create, "Create");
 	AppendMenu(root_file, MF_SEPARATOR, NULL, NULL);
-	AppendMenu(root_file, MF_STRING, MenuFileMenuExit, 
-		L"Exit");
-	AppendMenu(root_file_create, MF_STRING, 
-		MenuFileMenuCreateMenuFile, L"Empty file");
+	AppendMenu(root_file, MF_STRING, MenuFileMenuExit, "Exit");
+	AppendMenu(root_file_create, MF_STRING, MenuFileMenuCreateMenuFile, "Empty file");
 
 
 	SetMenu(hwnd, root);

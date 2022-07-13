@@ -3,31 +3,32 @@
 #include <vector>
 
 interface IMenu {
-	void append(std::wstring);
+	void append(std::string);
 	void append(HMENU menu);
 	void separatorend();
 	void append(IMenu menu);
 
-	size_t index(std::wstring name);
+	HMENU get_menu();
+
+	size_t operator[] (std::string name);
 };
+
 
 class Menu : public IMenu {
 	HMENU _menu;
-	std::vector<std::wstring> _indexer;
-	size_t _flag;
-
-	static size_t _hudeflag;
+	static std::vector<std::string> _indexer;
 
 public:
 	Menu();
-	Menu(std::vector<std::wstring> indexer) : Menu();
+	Menu(std::vector<std::string> indexer) : Menu();
 
-	void append(std::wstring what);
-	void append(HMENU menu);
+	void append(std::string what);
+	void append(HMENU menu, std::string name);
 	void separatorend();
-	void append(IMenu menu);
+	void append(IMenu menu, std::string name);
 
-	size_t index(std::wstring name);
+	HMENU get_menu();
+
+	size_t operator[] (std::string name);
 };
 #include "Menu.cpp"
-size_t Menu::_hudeflag = 0;

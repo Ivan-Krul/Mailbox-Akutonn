@@ -3,23 +3,23 @@
 MSBox::MSBox(HWND hwnd) {
 	_win = hwnd;
 
-	_title = L"[title]";
-	_text = L"[text]";
-	_id = MSBox_res__ok;
+	_title = "[title]";
+	_text = "[text]";
+	_id = MSBox_res::ok;
 	_icon = MB_ICONINFORMATION;
 	_property = 0u;
 }
 
-void MSBox::title(std::wstring titl) {
+void MSBox::title(std::string titl) {
 	_title = titl;
 }
 
-void MSBox::text(std::wstring txt) {
+void MSBox::text(std::string txt) {
 	_text = txt;
 }
 
 void MSBox::property(MSBox_prop prop) {
-	_property |= prop;
+	_property |= (UINT)prop;
 }
 
 void MSBox::trig() {

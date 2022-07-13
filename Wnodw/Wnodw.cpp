@@ -16,7 +16,7 @@ WNDCLASS Wnodw::_new_window(HBRUSH bg_color,
 	NWC.hIcon = icon;
 	NWC.hCursor = cursor;
 	NWC.hInstance = hinst;
-	NWC.lpszClassName = L"MainWndClass";
+	NWC.lpszClassName = "MainWndClass";
 	NWC.hbrBackground = bg_color;
 	NWC.lpfnWndProc = proccess;
 
@@ -30,7 +30,7 @@ void Wnodw::create(WNDPROC proccess, HBRUSH bg_color,
 	if (!RegisterClass(&_wcl)) exit(-1);
 }
 
-HWND Wnodw::adapt(LPCWSTR name, DWORD style, UINT x,
+HWND Wnodw::adapt(LPCSTR name, DWORD style, UINT x,
 	UINT y, HWND hwnd, HMENU hmenu, HINSTANCE hinst,
 	LPVOID lparam)
 {
@@ -52,7 +52,7 @@ HWND Wnodw::adapt(LPCWSTR name, DWORD style, UINT x,
 	posY = 0;
 #endif
 
-	return CreateWindowW(L"MainWndClass", name, style,
+	return CreateWindow("MainWndClass", name, style,
 		posX, posY, x, y, hwnd, hmenu,
 		hinst, lparam);
 }
