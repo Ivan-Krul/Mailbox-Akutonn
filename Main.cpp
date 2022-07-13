@@ -23,41 +23,30 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp) {
 	static Menu menu;
 
 	if (msg == WM_CREATE) {
-		std::wcout << "create\n";
+		std::cout << "create\n";
 		add_menu(hwnd, menu);
+		add_widgets(hwnd);
 	}
 	else if (msg == WM_COMMAND) {
-		std::wcout << "command";
+		std::cout << "command\n";
 
 		if (wp == menu["Empty file"]) {
-			std::wcout << "\tmenu:file/create/empty file\n";
-			MSBoxInf inf(hwnd);
-			inf.title("info");
-			inf.text(
-				"menu:file/create/empty file is clicked");
-			inf.property(MSBox_prop::ok);
-			inf.trig();
+			std::cout << "\tmenu:file/create/empty file\n";
 		}
 		else if(wp == menu["Visual"]) {
-			std::wcout << "\tmenu:visual\n";
-			MSBoxInf inf(hwnd);
-			inf.title("info");
-			inf.text("visual is clicked");
-			inf.property(MSBox_prop::ok);
-			inf.trig();
+			std::cout << "\tmenu:visual\n";
 		}
 		else if (wp == menu["Documentation"]) {
-			std::wcout << "\tmenu:documentation\n";
-			MSBoxInf inf(hwnd);
-			inf.title("info");
-			inf.text("documentation is clicked");
-			inf.property(MSBox_prop::ok);
-			inf.trig();
+			std::cout << "\tmenu:documentation\n";
 		}
 		else if (wp == menu["Exit"]) {
-			std::wcout << "\tmenu:file/exit\n";
-			std::wcout << "destroy\n";
+			std::cout << "\tmenu:file/exit\n";
+			std::cout << "destroy\n";
 			PostQuitMessage(0);
+		}
+		else if (wp == ButtonClicked) {
+			std::cout << "\tclick\n";
+			SetWindowText(hEdit5, "clicked!");
 		}
 	}
 	else if (msg == WM_DESTROY) {
@@ -81,3 +70,10 @@ void add_menu(HWND hwnd, Menu& menu) {
 
 	menu.set_as_main(hwnd);
 }
+
+void add_widgets(HWND hwnd) {
+	CreateWindow("static", "Hello static widget!", WS_VISIBLE | WS_CHILD | ES_CENTER, 5, 5, 490, 20, hwnd, NULL, NULL, NULL);
+	hEdit5 = CreateWindow("edit", "Hello edit widget!", WS_VISIBLE | WS_CHILD | ES_MULTILINE | WS_VSCROLL, 5, 30, 480, 100, hwnd, NULL, NULL, NULL);
+	CreateWindow("button", "Hello button widget!", WS_VISIBLE | WS_CHILD | ES_CENTER, 5, 130, 490, 20, hwnd, (HMENU)ButtonClicked, NULL, NULL);
+}
+

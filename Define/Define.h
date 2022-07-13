@@ -11,11 +11,8 @@
 
 #include <cassert>
 #include <Windows.h>
-
-#define SHOW_CONSOLE 1
-#define PROJECT_NAME "Mailbox Akutonn"
-
-#ifdef SHOW_CONSOLE
 #include <iostream>
-#endif
+
+#define IS_SHOW_CONSOLE 1
+#define PROJECT_NAME "Mailbox Akutonn"
 
