@@ -4,23 +4,31 @@
 #include "Main.h"
 
 int main() {
-	Wnodw wnd;
-	wnd.create(WndProc);
-	wnd.adapt("Wnd", WS_OVERLAPPEDWINDOW | WS_VISIBLE, 500, 250);
+	try {
+		auto wnd = Wnodw();
+		wnd.create(WndProc);
+		wnd.adapt("Wnd", WS_OVERLAPPEDWINDOW | WS_VISIBLE, 500, 250);
 
-	MSG msg = {0};
-	while (GetMessage(&msg, NULL, NULL, NULL)) {
-		TranslateMessage(&msg);
-		DispatchMessage(&msg);
+		MSG msg = { 0 };
+		while (GetMessage(&msg, NULL, NULL, NULL)) {
+			TranslateMessage(&msg);
+			DispatchMessage(&msg);
+		}
+
+		return 0;
 	}
-
-	return 0;
+	catch (std::exception& exept) {
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 0x4f);
+		std::cout << "Error: " << exept.what()<<'\n';
+		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 0x7);
+		return -1;
+	}
 }
 
 //---------------------------------------------------------//
 
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp) {
-	static Menu menu;
+	static auto menu = Menu();
 
 	if (msg == WM_CREATE) {
 		std::cout << "create\n";
@@ -36,7 +44,7 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp) {
 		else if(wp == menu["Visual"]) {
 			std::cout << "\tmenu:visual\n";
 		}
-		else if (wp == menu["Documentation"]) {
+		else if (wp == menu["Documentatio"]) {
 			std::cout << "\tmenu:documentation\n";
 		}
 		else if (wp == menu["Exit"]) {
@@ -57,8 +65,8 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp) {
 }
 
 void add_menu(HWND hwnd, Menu& menu) {
-	Menu men1;
-	Menu men2;
+	auto men1 = Menu();
+	auto men2 = Menu();
 
 	menu.append(men1(), "File");
 	menu.append("Visual");

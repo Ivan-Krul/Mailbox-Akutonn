@@ -41,5 +41,9 @@ size_t Menu::operator[](std::string name) {
 		if (_indexer[i] == name)
 			return i;
 	}
-	throw std::invalid_argument("menu is not found it");
+	std::string errmeta;
+	errmeta+= metadata(__FILE__) + 
+		" -> menu is not found it : " + name;
+
+	throw std::invalid_argument(errmeta);
 }
