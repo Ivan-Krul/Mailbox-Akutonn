@@ -11,8 +11,8 @@ Menu::Menu(std::vector<std::string> indexer) : Menu::Menu() {
 }
 
 void Menu::append(std::string what) {
-	AppendMenu(_menu, MF_STRING, _indexer.size(), what.c_str());
-	_indexer.push_back(what);
+	AppendMenu(_menu, MF_STRING, Indexer_.size(), what.c_str());
+	Indexer_.append(what);
 }
 
 void Menu::append(HMENU menu, std::string name) {
@@ -34,16 +34,4 @@ void Menu::set_as_main(HWND hwnd) {
 
 HMENU Menu::operator() () {
 	return _menu;
-}
-
-size_t Menu::operator[](std::string name) {
-	for (auto i = 0;i < _indexer.size();i++) {
-		if (_indexer[i] == name)
-			return i;
-	}
-	std::string errmeta;
-	errmeta+= metadata(__FILE__) + 
-		" -> menu is not found it : " + name;
-
-	throw std::invalid_argument(errmeta);
 }

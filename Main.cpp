@@ -32,28 +32,29 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp) {
 
 	if (msg == WM_CREATE) {
 		std::cout << "create\n";
+		//Indexer_.fillfromfile("Stand.txt");
 		add_menu(hwnd, menu);
 		add_widgets(hwnd);
 	}
 	else if (msg == WM_COMMAND) {
 		std::cout << "command\n";
 
-		if (wp == menu["Empty file"]) {
-			std::cout << "\tmenu:file/create/empty file\n";
+		if (wp == Indexer_["Empty file"]) {
+			std::cout << "\t" << Indexer_[wp] << "\n";
 		}
-		else if(wp == menu["Visual"]) {
-			std::cout << "\tmenu:visual\n";
+		else if(wp == Indexer_["Visual"]) {
+			std::cout << "\t" << Indexer_[wp] << "\n";
 		}
-		else if (wp == menu["Documentatio"]) {
-			std::cout << "\tmenu:documentation\n";
+		else if (wp == Indexer_["Documentation"]) {
+			std::cout << "\t" << Indexer_[wp] << "\n";
 		}
-		else if (wp == menu["Exit"]) {
-			std::cout << "\tmenu:file/exit\n";
+		else if (wp == Indexer_["Exit"]) {
+			std::cout << "\t" << Indexer_[wp] << "\n";
 			std::cout << "destroy\n";
 			PostQuitMessage(0);
 		}
-		else if (wp == ButtonClicked) {
-			std::cout << "\tclick\n";
+		else if (wp == Indexer_["click"]) {
+			std::cout << "\t"<<Indexer_[wp]<<"\n";
 			SetWindowText(hEdit5, "clicked!");
 		}
 	}
@@ -80,8 +81,9 @@ void add_menu(HWND hwnd, Menu& menu) {
 }
 
 void add_widgets(HWND hwnd) {
-	CreateWindow("static", "Hello static widget!", WS_VISIBLE | WS_CHILD | ES_CENTER, 5, 5, 490, 20, hwnd, NULL, NULL, NULL);
-	hEdit5 = CreateWindow("edit", "Hello edit widget!", WS_VISIBLE | WS_CHILD | ES_MULTILINE | WS_VSCROLL, 5, 30, 480, 100, hwnd, NULL, NULL, NULL);
-	CreateWindow("button", "Hello button widget!", WS_VISIBLE | WS_CHILD | ES_CENTER, 5, 130, 490, 20, hwnd, (HMENU)ButtonClicked, NULL, NULL);
+	Indexer_.append("click");
+	CreateWindow("static", "Hello static widget!", WS_VISIBLE | WS_CHILD | ES_CENTER, 5, 5, 460, 20, hwnd, NULL, NULL, NULL);
+	hEdit5 = CreateWindow("edit", "Hello edit widget!", WS_VISIBLE | WS_CHILD | ES_MULTILINE | WS_VSCROLL, 5, 30, 460, 100, hwnd, NULL, NULL, NULL);
+	CreateWindow("button", "Hello button widget!", WS_VISIBLE | WS_CHILD | ES_CENTER, 5, 130, 460, 20, hwnd, (HMENU)Indexer_["click"], NULL, NULL);
 }
 
