@@ -1,4 +1,4 @@
-#include "Wnodw.h"
+#include "Wndow.h"
 
 static POINT get_screen_resol() {
 	RECT desktop;

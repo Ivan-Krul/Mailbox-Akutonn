@@ -23,4 +23,4 @@ public:
 	WNDCLASS operator() ();
 };
 
-#include "Wnodw.cpp"
+#include "Wndow.cpp"
