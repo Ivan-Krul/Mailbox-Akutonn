@@ -6,14 +6,8 @@
 
 #include "Define/Define.h"
 #include "MSBox/MSBox.h"
-#include "Widget/Wnodw.h"
+#include "Widget/Widget.h"
 #include "Menu/Menu.h"
-
-#define MenuFileMenuCreateMenuFile 1
-#define MenuVisual 2
-#define MenuDocumentation 3
-#define MenuFileMenuExit 4
-#define ButtonClicked 5
 
 HWND hEdit5;
 

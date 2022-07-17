@@ -28,7 +28,10 @@ int main() {
 //---------------------------------------------------------//
 
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp) {
-	static auto menu = Menu();
+	static Menu menu;
+	static WEdit edit;
+	static WStatic stati;
+	static WButton butt;
 
 	if (msg == WM_CREATE) {
 		std::cout << "create\n";
@@ -82,6 +85,8 @@ void add_menu(HWND hwnd, Menu& menu) {
 
 void add_widgets(HWND hwnd) {
 	Indexer_.append("click");
+
+
 	CreateWindow("static", "Hello static widget!", WS_VISIBLE | WS_CHILD | ES_CENTER, 5, 5, 460, 20, hwnd, NULL, NULL, NULL);
 	hEdit5 = CreateWindow("edit", "Hello edit widget!", WS_VISIBLE | WS_CHILD | ES_MULTILINE | WS_VSCROLL, 5, 30, 460, 100, hwnd, NULL, NULL, NULL);
 	CreateWindow("button", "Hello button widget!", WS_VISIBLE | WS_CHILD | ES_CENTER, 5, 130, 460, 20, hwnd, (HMENU)Indexer_["click"], NULL, NULL);

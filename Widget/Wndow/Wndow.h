@@ -12,6 +12,7 @@ interface IWnodw : IWidget {
 static POINT get_screen_resol();
 
 class Wnodw : IWnodw {
+protected:
 	WNDCLASS _wcl;
 
 	WNDCLASS _new_window(HBRUSH bg_color, HCURSOR cursor, HINSTANCE hinst, HICON icon, WNDPROC proccess);

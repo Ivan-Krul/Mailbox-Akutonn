@@ -6,21 +6,29 @@ interface IAdapt {
 };
 
 interface IWidget : IAdapt {
+	void text(std::string str);
+	std::string text(UINT size);
+	size_t henu();
 	HWND operator() ();
 };
 
 class Widget : public IWidget {
+protected:
 	HWND _hwnd;
+	size_t _henu;
 
-	void create_widget(LPCSTR type,LPCSTR name, DWORD style, UINT x, UINT y, UINT px, UINT py, HWND hwnd = NULL, HMENU hmenu = NULL, HINSTANCE hinst = NULL, LPVOID lparam = NULL);
+	void _create_widget(LPCSTR type,LPCSTR name, DWORD style, UINT x, UINT y, UINT px, UINT py, HWND hwnd = NULL, HMENU hmenu = NULL, HINSTANCE hinst = NULL, LPVOID lparam = NULL);
 public:
-	virtual void adapt(LPCSTR name, DWORD style, UINT x, UINT y, UINT px, UINT py, HWND hwnd = NULL, HMENU hmenu = NULL, HINSTANCE hinst = NULL, LPVOID lparam = NULL)
-		: create_widget("Window", name, style, px, py, x, y, hwnd, hmenu, hinst, lparam);
+	virtual void adapt(LPCSTR name, DWORD style, UINT x, UINT y, UINT px, UINT py, HWND hwnd = NULL, HMENU hmenu = NULL, HINSTANCE hinst = NULL, LPVOID lparam = NULL);
 
-	virtual void text(std::string str);
-	virtual std::string text();
+	void text(std::string str);
+	std::string text(UINT size);
+	size_t henu();
 
 	HWND operator() ();
 };
 #include "Widget.cpp"
 #include "Wndow/Wndow.h"
+#include "Static/Static.h"
+#include "Edit/Edit.h"
+#include "Button/Button.h"
