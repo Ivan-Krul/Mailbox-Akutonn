@@ -3,9 +3,17 @@
 
 #include "Main.h"
 
+static WButton
+static Menu menu;
+
 int main() {
 	try {
-		auto wnd = Wnodw();
+		Wndow wnd;
+
+		wdgt[0] = new WButton();
+		wdgt[1] = new WEdit();
+		wdgt[2] = new WStatic();
+
 		wnd.create(WndProc);
 		wnd.adapt("Wnd", WS_OVERLAPPEDWINDOW | WS_VISIBLE, 500, 250);
 
@@ -28,10 +36,7 @@ int main() {
 //---------------------------------------------------------//
 
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp) {
-	static Menu menu;
-	static WEdit edit;
-	static WStatic stati;
-	static WButton butt;
+
 
 	if (msg == WM_CREATE) {
 		std::cout << "create\n";
@@ -56,9 +61,14 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp) {
 			std::cout << "destroy\n";
 			PostQuitMessage(0);
 		}
-		else if (wp == Indexer_["click"]) {
-			std::cout << "\t"<<Indexer_[wp]<<"\n";
-			SetWindowText(hEdit5, "clicked!");
+		else if (wp == Indexer_["Wbutton"]) {
+			std::cout << "\t"<<Indexer_[wp]<<"\n";			
+		}
+		else if (wp == Indexer_["Wedit"]) {
+			std::cout << "\t" << Indexer_[wp] << "\n";
+		}
+		else if (wp == Indexer_["Wstatic"]) {
+			std::cout << "\t" << Indexer_[wp] << "\n";
 		}
 	}
 	else if (msg == WM_DESTROY) {
@@ -84,11 +94,16 @@ void add_menu(HWND hwnd, Menu& menu) {
 }
 
 void add_widgets(HWND hwnd) {
-	Indexer_.append("click");
-
-
-	CreateWindow("static", "Hello static widget!", WS_VISIBLE | WS_CHILD | ES_CENTER, 5, 5, 460, 20, hwnd, NULL, NULL, NULL);
-	hEdit5 = CreateWindow("edit", "Hello edit widget!", WS_VISIBLE | WS_CHILD | ES_MULTILINE | WS_VSCROLL, 5, 30, 460, 100, hwnd, NULL, NULL, NULL);
-	CreateWindow("button", "Hello button widget!", WS_VISIBLE | WS_CHILD | ES_CENTER, 5, 130, 460, 20, hwnd, (HMENU)Indexer_["click"], NULL, NULL);
+	for (size_t i = 0; i < std::size(wdgt);i++) {
+		if (wdgt[i]->intedeficate() == widgets::button) {
+			wdgt[i]->adapt("hello, button", WS_VISIBLE | WS_CHILD | ES_CENTER, 400, 40, 5, 130+i*40, hwnd, (Indexer_.append("Wbutton"), (HMENU)Indexer_["Wbutton"]), NULL, NULL);
+		}
+		else if (wdgt[i]->intedeficate() == widgets::edit) {
+			wdgt[i]->adapt("Hello edit widget!", WS_VISIBLE | WS_CHILD | ES_MULTILINE | WS_VSCROLL, 5, 30, 460, 100, hwnd, (Indexer_.append("Wedit"), (HMENU)Indexer_["W" + std::to_string(i) + "edit"]), NULL, NULL);
+		}
+		else if (wdgt[i]->intedeficate() == widgets::static_) {
+			wdgt[i]->adapt("Hello static widget!", WS_VISIBLE | WS_CHILD | ES_CENTER, 5, 5, 460, 20, hwnd, (Indexer_.append("Wstatic"), (HMENU)Indexer_["W" + std::to_string(i) + "static"]), NULL, NULL);
+		}
+	}
 }
 

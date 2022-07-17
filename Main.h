@@ -9,8 +9,6 @@
 #include "Widget/Widget.h"
 #include "Menu/Menu.h"
 
-HWND hEdit5;
-
 void add_menu(HWND hwnd, Menu& menu);
 void add_widgets(HWND hwnd);
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp);

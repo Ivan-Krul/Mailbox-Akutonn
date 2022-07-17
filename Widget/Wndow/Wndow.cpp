@@ -8,7 +8,7 @@ static POINT get_screen_resol() {
 	return p;
 }
 
-WNDCLASS Wnodw::_new_window(HBRUSH bg_color,
+WNDCLASS Wndow::_new_window(HBRUSH bg_color,
 	HCURSOR cursor, HINSTANCE hinst, HICON icon,
 	WNDPROC proccess) {
 	WNDCLASS NWC = { 0 };
@@ -23,14 +23,14 @@ WNDCLASS Wnodw::_new_window(HBRUSH bg_color,
 	return NWC;
 }
 
-void Wnodw::create(WNDPROC proccess, HBRUSH bg_color,
+void Wndow::create(WNDPROC proccess, HBRUSH bg_color,
 	HCURSOR cursor, HINSTANCE hinst, HICON icon) {
 	_wcl = _new_window((HBRUSH)bg_color, cursor, hinst,
 		icon, proccess);
 	if (!RegisterClass(&_wcl)) exit(-1);
 }
 
-HWND Wnodw::adapt(LPCSTR name, DWORD style, UINT x,
+HWND Wndow::adapt(LPCSTR name, DWORD style, UINT x,
 	UINT y, HWND hwnd, HMENU hmenu, HINSTANCE hinst,
 	LPVOID lparam)
 {
@@ -57,7 +57,12 @@ HWND Wnodw::adapt(LPCSTR name, DWORD style, UINT x,
 		hinst, lparam);
 }
 
-WNDCLASS Wnodw::operator() ()
+widgets Wndow::intedeficate()
+{
+	return widgets::window;
+}
+
+WNDCLASS Wndow::operator() ()
 {
 	return _wcl;
 }

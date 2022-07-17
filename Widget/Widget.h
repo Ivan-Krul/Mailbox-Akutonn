@@ -1,14 +1,20 @@
 #pragma once
 #include "../Define/Define.h"
 
-interface IAdapt {
-	HWND adapt(LPCSTR name, DWORD style, UINT x, UINT y, UINT px, UINT py, HWND hwnd = NULL, HMENU hmenu = NULL, HINSTANCE hinst = NULL, LPVOID lparam = NULL);
+enum class widgets : int {
+	def_widget = 'defa',
+	window = 'wind',
+	button = 'butt',
+	static_ = 'stat',
+	edit = 'edit'
 };
 
-interface IWidget : IAdapt {
+interface IWidget {
+	HWND adapt(LPCSTR name, DWORD style, UINT x, UINT y, UINT px, UINT py, HWND hwnd = NULL, HMENU hmenu = NULL, HINSTANCE hinst = NULL, LPVOID lparam = NULL);
 	void text(std::string str);
 	std::string text(UINT size);
 	size_t henu();
+	virtual widgets intedeficate();
 	HWND operator() ();
 };
 
@@ -24,6 +30,7 @@ public:
 	void text(std::string str);
 	std::string text(UINT size);
 	size_t henu();
+	virtual widgets intedeficate();
 
 	HWND operator() ();
 };

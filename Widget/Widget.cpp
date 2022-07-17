@@ -27,6 +27,11 @@ size_t Widget::henu()
 	return _henu;
 }
 
+widgets Widget::intedeficate()
+{
+	return widgets::def_widget;
+}
+
 HWND Widget::operator() () {
 	return _hwnd;
 }
