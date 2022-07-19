@@ -3,16 +3,15 @@
 
 #include "Main.h"
 
-static WButton
+static WButton but;
+static WEdit edi;
+static WStatic sta;
 static Menu menu;
 
 int main() {
 	try {
+		std::cout << "["<<PROJECT_NAME<<"]\n";
 		Wndow wnd;
-
-		wdgt[0] = new WButton();
-		wdgt[1] = new WEdit();
-		wdgt[2] = new WStatic();
 
 		wnd.create(WndProc);
 		wnd.adapt("Wnd", WS_OVERLAPPEDWINDOW | WS_VISIBLE, 500, 250);
@@ -21,6 +20,11 @@ int main() {
 		while (GetMessage(&msg, NULL, NULL, NULL)) {
 			TranslateMessage(&msg);
 			DispatchMessage(&msg);
+
+			if (GetAsyncKeyState(VK_ESCAPE)) {
+				std::cout << "emergency stop!\n";
+				throw std::exception();
+			}
 		}
 
 		return 0;
@@ -40,13 +44,12 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp) {
 
 	if (msg == WM_CREATE) {
 		std::cout << "create\n";
-		//Indexer_.fillfromfile("Stand.txt");
 		add_menu(hwnd, menu);
 		add_widgets(hwnd);
 	}
 	else if (msg == WM_COMMAND) {
 		std::cout << "command\n";
-
+		
 		if (wp == Indexer_["Empty file"]) {
 			std::cout << "\t" << Indexer_[wp] << "\n";
 		}
@@ -61,13 +64,14 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp) {
 			std::cout << "destroy\n";
 			PostQuitMessage(0);
 		}
-		else if (wp == Indexer_["Wbutton"]) {
-			std::cout << "\t"<<Indexer_[wp]<<"\n";			
+		else if (wp == but.henu()) {
+			std::cout << "\t"<<Indexer_[wp]<<"\n";	
+			edi.text("clicked!");
 		}
-		else if (wp == Indexer_["Wedit"]) {
+		else if (wp == edi.henu()) {
 			std::cout << "\t" << Indexer_[wp] << "\n";
 		}
-		else if (wp == Indexer_["Wstatic"]) {
+		else if (wp == sta.henu()) {
 			std::cout << "\t" << Indexer_[wp] << "\n";
 		}
 	}
@@ -91,19 +95,16 @@ void add_menu(HWND hwnd, Menu& menu) {
 	men2.append("Empty file");
 
 	menu.set_as_main(hwnd);
+
+
 }
 
 void add_widgets(HWND hwnd) {
-	for (size_t i = 0; i < std::size(wdgt);i++) {
-		if (wdgt[i]->intedeficate() == widgets::button) {
-			wdgt[i]->adapt("hello, button", WS_VISIBLE | WS_CHILD | ES_CENTER, 400, 40, 5, 130+i*40, hwnd, (Indexer_.append("Wbutton"), (HMENU)Indexer_["Wbutton"]), NULL, NULL);
-		}
-		else if (wdgt[i]->intedeficate() == widgets::edit) {
-			wdgt[i]->adapt("Hello edit widget!", WS_VISIBLE | WS_CHILD | ES_MULTILINE | WS_VSCROLL, 5, 30, 460, 100, hwnd, (Indexer_.append("Wedit"), (HMENU)Indexer_["W" + std::to_string(i) + "edit"]), NULL, NULL);
-		}
-		else if (wdgt[i]->intedeficate() == widgets::static_) {
-			wdgt[i]->adapt("Hello static widget!", WS_VISIBLE | WS_CHILD | ES_CENTER, 5, 5, 460, 20, hwnd, (Indexer_.append("Wstatic"), (HMENU)Indexer_["W" + std::to_string(i) + "static"]), NULL, NULL);
-		}
-	}
+	Indexer_.append("Wbutton");
+	Indexer_.append("Wstatic");
+	Indexer_.append("Wedit");
+	but.adapt("hello, button", WS_VISIBLE | WS_CHILD | ES_CENTER, 5, 135, 130, 40, hwnd, (HMENU)Indexer_["Wbutton"]);
+	sta.adapt("Hello static widget!", WS_VISIBLE | WS_CHILD | ES_CENTER, 5, 5, 460, 20, hwnd, (HMENU)Indexer_["Wstatic"]);
+	edi.adapt("Hello edit widget!", WS_VISIBLE | WS_CHILD | ES_MULTILINE | WS_VSCROLL, 5, 30, 460, 100, hwnd, (HMENU)Indexer_["Wedit"]);
 }
 

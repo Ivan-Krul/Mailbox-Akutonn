@@ -6,7 +6,10 @@
 
 #include "Define/Define.h"
 #include "MSBox/MSBox.h"
-#include "Widget/Widget.h"
+#include "Widget/Static/Static.h"
+#include "Widget/Edit/Edit.h"
+#include "Widget/Button/Button.h"
+#include "Widget/Wndow/Wndow.h"
 #include "Menu/Menu.h"
 
 void add_menu(HWND hwnd, Menu& menu);

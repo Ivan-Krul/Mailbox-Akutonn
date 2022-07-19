@@ -1,13 +1,8 @@
 #include "Widget.h"
 
-void Widget::_create_widget(LPCSTR type, LPCSTR name, DWORD style, UINT x, UINT y, UINT px, UINT py, HWND hwnd, HMENU hmenu, HINSTANCE hinst, LPVOID lparam)
-{
+void Widget::_create_widget(LPCSTR type, LPCSTR name, DWORD style, UINT x, UINT y, UINT px, UINT py, HWND hwnd, HMENU hmenu, HINSTANCE hinst, LPVOID lparam) {
 	_hwnd = CreateWindow(type, name, style, px, py, x, y, hwnd, hmenu, hinst, lparam);
 	_henu = (size_t)hmenu;
-}
-
-void Widget::adapt(LPCSTR name, DWORD style, UINT x, UINT y, UINT px, UINT py, HWND hwnd, HMENU hmenu, HINSTANCE hinst, LPVOID lparam) {
-	_create_widget("Window", name, style, px, py, x, y, hwnd, hmenu, hinst, lparam);
 }
 
 void Widget::text(std::string str) {
@@ -22,15 +17,10 @@ std::string Widget::text(UINT size) {
 	return str;
 }
 
-size_t Widget::henu()
-{
+size_t Widget::henu() {
 	return _henu;
 }
 
-widgets Widget::intedeficate()
-{
-	return widgets::def_widget;
-}
 
 HWND Widget::operator() () {
 	return _hwnd;

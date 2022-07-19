@@ -30,8 +30,8 @@ void Wndow::create(WNDPROC proccess, HBRUSH bg_color,
 	if (!RegisterClass(&_wcl)) exit(-1);
 }
 
-HWND Wndow::adapt(LPCSTR name, DWORD style, UINT x,
-	UINT y, HWND hwnd, HMENU hmenu, HINSTANCE hinst,
+void Wndow::adapt(LPCSTR name, DWORD style, UINT x,
+	UINT y, UINT px,UINT py, HWND hwnd, HMENU hmenu, HINSTANCE hinst,
 	LPVOID lparam)
 {
 	auto a = get_screen_resol();
@@ -52,17 +52,7 @@ HWND Wndow::adapt(LPCSTR name, DWORD style, UINT x,
 	posY = 0;
 #endif
 
-	return CreateWindow("MainWndClass", name, style,
+	CreateWindow("MainWndClass", name, style,
 		posX, posY, x, y, hwnd, hmenu,
 		hinst, lparam);
-}
-
-widgets Wndow::intedeficate()
-{
-	return widgets::window;
-}
-
-WNDCLASS Wndow::operator() ()
-{
-	return _wcl;
 }

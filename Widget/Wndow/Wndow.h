@@ -1,7 +1,7 @@
 #pragma once
 #include "../Widget.h"
 
-interface IWCreate {
+__interface IWCreate {
 	void create(WNDPROC proccess, HBRUSH bg_color = (HBRUSH)COLOR_WINDOW, HCURSOR cursor = LoadCursor(NULL, IDC_ARROW), HINSTANCE hinst = NULL, HICON icon = NULL);
 };
 
@@ -15,10 +15,7 @@ protected:
 public:
 	void create(WNDPROC proccess, HBRUSH bg_color = (HBRUSH)COLOR_WINDOW, HCURSOR cursor = LoadCursor(NULL, IDC_ARROW), HINSTANCE hinst = NULL, HICON icon = NULL);
 
-	HWND adapt(LPCSTR name, DWORD style, UINT x, UINT y, HWND hwnd = NULL, HMENU hmenu = NULL, HINSTANCE hinst = NULL, LPVOID lparam = NULL);
-	virtual widgets intedeficate();
-
-	WNDCLASS operator() ();
+	void adapt(LPCSTR name, DWORD style, UINT x, UINT y, UINT px = 200,UINT py = 200, HWND hwnd = NULL, HMENU hmenu = NULL, HINSTANCE hinst = NULL, LPVOID lparam = NULL);
 };
 
 #include "Wndow.cpp"

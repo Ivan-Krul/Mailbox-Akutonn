@@ -1,8 +1,4 @@
 #pragma once
-#define CENTER 'cent'
-#define DIAGONAL 'diag'
-#define RANDOM 'rand'
-#define WINDOW_POS_INDEX CENTER
 
 #define DEBUG
 #ifndef DEBUG
