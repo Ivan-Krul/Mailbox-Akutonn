@@ -13,7 +13,7 @@ int main() {
 		std::cout << "["<<PROJECT_NAME<<"]\n";
 		Wndow wnd;
 
-		wnd.create(WndProc);
+		wnd.create(WndProc, (HBRUSH)COLOR_WINDOW, LoadCursor(NULL, IDC_ARROW), NULL, LoadIcon(NULL, MAKEINTRESOURCE(NULL)));
 		wnd.adapt("Wnd", WS_OVERLAPPEDWINDOW | WS_VISIBLE, 500, 250);
 
 		MSG msg = { 0 };
@@ -50,30 +50,17 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp) {
 	else if (msg == WM_COMMAND) {
 		std::cout << "command\n";
 		
-		if (wp == Indexer_["Empty file"]) {
-			std::cout << "\t" << Indexer_[wp] << "\n";
-		}
-		else if(wp == Indexer_["Visual"]) {
-			std::cout << "\t" << Indexer_[wp] << "\n";
-		}
-		else if (wp == Indexer_["Documentation"]) {
-			std::cout << "\t" << Indexer_[wp] << "\n";
-		}
-		else if (wp == Indexer_["Exit"]) {
+
+		if (wp == Indexer_["Exit"]) {
 			std::cout << "\t" << Indexer_[wp] << "\n";
 			std::cout << "destroy\n";
 			PostQuitMessage(0);
 		}
 		else if (wp == but.henu()) {
-			std::cout << "\t"<<Indexer_[wp]<<"\n";	
+			std::cout << "\t" << Indexer_[wp] << "\n";
 			edi.text("clicked!");
 		}
-		else if (wp == edi.henu()) {
-			std::cout << "\t" << Indexer_[wp] << "\n";
-		}
-		else if (wp == sta.henu()) {
-			std::cout << "\t" << Indexer_[wp] << "\n";
-		}
+		
 	}
 	else if (msg == WM_DESTROY) {
 		std::wcout << "destroy\n";
@@ -100,11 +87,8 @@ void add_menu(HWND hwnd, Menu& menu) {
 }
 
 void add_widgets(HWND hwnd) {
-	Indexer_.append("Wbutton");
-	Indexer_.append("Wstatic");
-	Indexer_.append("Wedit");
-	but.adapt("hello, button", WS_VISIBLE | WS_CHILD | ES_CENTER, 5, 135, 130, 40, hwnd, (HMENU)Indexer_["Wbutton"]);
-	sta.adapt("Hello static widget!", WS_VISIBLE | WS_CHILD | ES_CENTER, 5, 5, 460, 20, hwnd, (HMENU)Indexer_["Wstatic"]);
-	edi.adapt("Hello edit widget!", WS_VISIBLE | WS_CHILD | ES_MULTILINE | WS_VSCROLL, 5, 30, 460, 100, hwnd, (HMENU)Indexer_["Wedit"]);
+	but.adapt("hello, button", WS_VISIBLE | WS_CHILD | ES_CENTER, 5, 135, 130, 40, hwnd, (HMENU)Indexer_.appgetend("Wbutton"));
+	sta.adapt("Hello static widget!", WS_VISIBLE | WS_CHILD | ES_CENTER, 5, 5, 460, 20, hwnd, (HMENU)Indexer_.appgetend("Wstatic"));
+	edi.adapt("Hello edit widget!", WS_VISIBLE | WS_CHILD | ES_MULTILINE | WS_VSCROLL, 5, 30, 460, 100, hwnd, (HMENU)Indexer_.appgetend("Wedit"));
 }
 

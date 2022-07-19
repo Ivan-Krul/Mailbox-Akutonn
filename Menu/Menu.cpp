@@ -23,8 +23,7 @@ void Menu::separatorend() {
 	AppendMenu(_menu, MF_SEPARATOR, NULL, NULL);
 }
 
-HMENU Menu::get_menu()
-{
+HMENU Menu::get_menu() {
 	return _menu;
 }
 

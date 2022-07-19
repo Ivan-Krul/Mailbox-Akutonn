@@ -10,7 +10,7 @@ size_t Indexer::size() {
 
 size_t Indexer::appgetend(std::string ind) {
 	_indexer.insert(_indexer.begin(), ind);
-	return _indexer.size() - 1;
+	return _indexer.size() -1;
 }
 
 
