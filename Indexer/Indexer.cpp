@@ -8,8 +8,9 @@ size_t Indexer::size() {
 	return _indexer.size();
 }
 
-void Indexer::appbeg(std::string ind) {
+size_t Indexer::appgetend(std::string ind) {
 	_indexer.insert(_indexer.begin(), ind);
+	return _indexer.size() - 1;
 }
 
 
