@@ -12,9 +12,13 @@
 #include "Widget/Wndow/Wndow.h"
 #include "Menu/Menu.h"
 
+#include <chrono>
+
 void add_menu(HWND hwnd, Menu& menu);
 void add_widgets(HWND hwnd);
 LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp);
+
+void ext();
 
 int main();
 

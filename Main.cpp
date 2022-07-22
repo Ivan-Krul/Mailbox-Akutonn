@@ -8,9 +8,12 @@ static WEdit edi;
 static WStatic sta;
 static Menu menu;
 
+extern auto beg = std::chrono::system_clock::now();
+
 int main() {
+	std::cout << "[" << PROJECT_NAME << "]\n";
+	atexit(ext);
 	try {
-		std::cout << "["<<PROJECT_NAME<<"]\n";
 		Wndow wnd;
 
 		wnd.create(WndProc, (HBRUSH)COLOR_WINDOW, LoadCursor(NULL, IDC_ARROW), NULL, LoadIcon(NULL, MAKEINTRESOURCE(NULL)));
@@ -67,6 +70,46 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp) {
 		PostQuitMessage(0);
 	}
 	return DefWindowProc(hwnd, msg, wp, lp);
+}
+
+std::string si(float val) {
+	int stepin = 0;
+
+	while (!(1000.0f > val) && stepin != 24) {
+		val /= 1000.0f;
+		stepin += 3;
+	}
+	while (!(val > 1.0f) && stepin != -24) {
+		val *= 1000.0f;
+		stepin -= 3;
+	}
+	char su;
+
+	if (stepin == -24) su = 'y';
+	else if (stepin == -21) su = 'z';
+	else if (stepin == -18) su = 'a';
+	else if (stepin == -15) su = 'f';
+	else if (stepin == -12) su = 'p';
+	else if (stepin == -9) su = 'n';
+	else if (stepin == -6) su = 'μ';
+	else if (stepin == -3) su = 'm';
+	else if (stepin == 0) su = '\0';
+	else if (stepin == 3) su = 'k';
+	else if (stepin == 6) su = 'M';
+	else if (stepin == 9) su = 'G';
+	else if (stepin == 12) su = 'T';
+	else if (stepin == 15) su = 'P';
+	else if (stepin == 18) su = 'E';
+	else if (stepin == 21) su = 'Z';
+	else su = 'Y';
+
+	return  std::to_string(val) +" " + su;
+}
+
+void ext() {
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 0x1f);
+	std::cout << "time elapsed: " << si((float)std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::system_clock::now() - beg).count()/1.0e6) << "s\n";
+	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 0x7);
 }
 
 void add_menu(HWND hwnd, Menu& menu) {
