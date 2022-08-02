@@ -2,17 +2,17 @@
 //
 
 #include "Main.h"
+#include "Logger/Logger.h"
 
 static WButton but;
 static WEdit edi;
 static WStatic sta;
 static Menu menu;
 
+static logger logg;
 extern auto beg = std::chrono::system_clock::now();
 
 int main() {
-	std::cout << "[" << PROJECT_NAME << "]\n";
-	atexit(ext);
 	try {
 		Wndow wnd;
 
@@ -25,7 +25,7 @@ int main() {
 			DispatchMessage(&msg);
 
 			if (GetAsyncKeyState(VK_ESCAPE)) {
-				std::cout << "emergency stop!\n";
+				logg.log("emergency stop!");
 				throw std::exception();
 			}
 		}
@@ -33,9 +33,7 @@ int main() {
 		return 0;
 	}
 	catch (std::exception& exept) {
-		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 0x4f);
-		std::cout << "Error: " << exept.what()<<'\n';
-		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 0x7);
+		logg.log("Error: "+(std::string)exept.what());
 		return -1;
 	}
 }
@@ -46,27 +44,27 @@ LRESULT CALLBACK WndProc(HWND hwnd, UINT msg, WPARAM wp, LPARAM lp) {
 
 
 	if (msg == WM_CREATE) {
-		std::cout << "create\n";
+		logg.log("create");
 		add_menu(hwnd, menu);
 		add_widgets(hwnd);
 	}
 	else if (msg == WM_COMMAND) {
-		std::cout << "command\n";
+		logg.log("command");
 		
 
 		if (wp == Indexer_["Exit"]) {
-			std::cout << "\t" << Indexer_[wp] << "\n";
-			std::cout << "destroy\n";
+			logg.log("\t"+Indexer_[wp]);
+			logg.log("destroy");
 			PostQuitMessage(0);
 		}
 		else if (wp == but.henu()) {
-			std::cout << "\t" << Indexer_[wp] << "\n";
+			logg.log("\t"+Indexer_[wp]);
 			edi.text("clicked!");
 		}
 		
 	}
 	else if (msg == WM_DESTROY) {
-		std::wcout << "destroy\n";
+		logg.log("destroy");
 		PostQuitMessage(0);
 	}
 	return DefWindowProc(hwnd, msg, wp, lp);
@@ -91,7 +89,7 @@ std::string si(float val) {
 	else if (stepin == -15) su = 'f';
 	else if (stepin == -12) su = 'p';
 	else if (stepin == -9) su = 'n';
-	else if (stepin == -6) su = 'μ';
+	else if (stepin == -6) su = 'u';
 	else if (stepin == -3) su = 'm';
 	else if (stepin == 0) su = '\0';
 	else if (stepin == 3) su = 'k';
@@ -103,13 +101,9 @@ std::string si(float val) {
 	else if (stepin == 21) su = 'Z';
 	else su = 'Y';
 
-	return  std::to_string(val) +" " + su;
-}
-
-void ext() {
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 0x1f);
-	std::cout << "time elapsed: " << si((float)std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::system_clock::now() - beg).count()/1.0e6) << "s\n";
-	SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 0x7);
+	std::string num = std::to_string(val) + " ";
+	num.insert(num.end(), su);
+	return num;
 }
 
 void add_menu(HWND hwnd, Menu& menu) {
@@ -134,4 +128,3 @@ void add_widgets(HWND hwnd) {
 	sta.adapt("Hello static widget!", WS_VISIBLE | WS_CHILD | ES_CENTER, 5, 5, 460, 20, hwnd, (HMENU)Indexer_.appgetend("Wstatic"));
 	edi.adapt("Hello edit widget!", WS_VISIBLE | WS_CHILD | ES_MULTILINE | WS_VSCROLL, 5, 30, 460, 100, hwnd, (HMENU)Indexer_.appgetend("Wedit"));
 }
-

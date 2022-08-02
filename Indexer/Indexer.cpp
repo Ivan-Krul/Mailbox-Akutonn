@@ -13,8 +13,6 @@ size_t Indexer::appgetend(std::string ind) {
 	return _indexer.size() -1;
 }
 
-
-
 size_t Indexer::operator[](std::string what) {
 	for (auto i = 0;i < _indexer.size();i++) {
 		if (_indexer[i] == what)
